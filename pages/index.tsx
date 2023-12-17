@@ -1,62 +1,54 @@
-import Head from "next/head";
-import { CardanoWallet, MeshBadge } from "@meshsdk/react";
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable jsx-a11y/alt-text */
+import { useWalletList } from "@meshsdk/react";
+import Image from "next/image";
 
 export default function Home() {
+  const wallets = useWalletList();
+
+  // example-1
+  // console.log("Wallet List:", wallets);
+
   return (
-    <div className="container">
-      <Head>
-        <title>Mesh App on Cardano</title>
-        <meta name="description" content="A Cardano dApp powered my Mesh" />
-        <link
-          rel="icon"
-          href="https://meshjs.dev/favicon/favicon-32x32.png"
-        />
-        <link
-          href="https://meshjs.dev/css/template.css"
-          rel="stylesheet"
-          key="mesh-demo"
-        />
-      </Head>
+    <>
+      {/* example-1 */}
+      {/* <h1>Wallet List:</h1>
+      {wallets.map((wallet, i) => {
+        return (
+          <div key={i}>
+            <h2>Wallet{i}</h2>
+            <p>Name: {wallet.name}</p>
+            <p>Version: {wallet.version}</p>
+            <p>Icon: {wallet.icon}</p>
+          </div>
+        );
+      })} */}
 
-      <main className="main">
-        <h1 className="title">
-          <a href="https://meshjs.dev/">Mesh</a> Next.js
-        </h1>
-
-        <div className="demo">
-          <CardanoWallet />
+      {/* example-2 */}
+      <div className="bg-black text-white h-screen flex justify-center items-center">
+        <div className="border border-white rounded-2xl py-4 px-6">
+          <h1 className="text-center text-2xl font-bold m-4">Wallet List:</h1>
+          <div className="flex justify-center items-center">
+            {wallets.map((wallet, i) => {
+              return (
+                <div
+                  key={i}
+                  className="bg-slate-700 border border-transparent hover:border-white rounded-xl text-center font-bold m-2 p-2"
+                >
+                  <Image
+                    src={wallet.icon}
+                    alt="wallet icon"
+                    width={50}
+                    height={50}
+                  />
+                  <p className="text-sm">{wallet.name}</p>
+                  <p className="text-xs">{wallet.version}</p>
+                </div>
+              );
+            })}
+          </div>
         </div>
-
-        <div className="grid">
-          <a href="https://meshjs.dev/apis" className="card">
-            <h2>Documentation</h2>
-            <p>
-              Our documentation provide live demos and code samples; great
-              educational tool for learning how Cardano works.
-            </p>
-          </a>
-
-          <a href="https://meshjs.dev/guides" className="card">
-            <h2>Guides</h2>
-            <p>
-              Whether you are launching a new NFT project or ecommerce store,
-              these guides will help you get started.
-            </p>
-          </a>
-
-          <a href="https://meshjs.dev/react" className="card">
-            <h2>React components</h2>
-            <p>
-              Useful React UI components and hooks, seamlessly integrate them
-              into your app, and bring the user interface to life.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className="footer">
-        <MeshBadge dark={true} />
-      </footer>
-    </div>
+      </div>
+    </>
   );
 }
